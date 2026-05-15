@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply text-slate-200 min-h-screen antialiased;
+  background-color: #080b10;
+  background-image: linear-gradient(165deg, #070a0f 0%, #0c1018 45%, #0a0e14 100%);
+  background-attachment: fixed;
+}
+
+/* Glassmorphism: transparent frosted panels — blur + saturation = “structural” glass */
+@layer components {
+  .glass {
+    background: linear-gradient(
+      168deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0.04) 40%,
+      rgba(180, 220, 255, 0.045) 100%
+    );
+    background-color: rgba(4, 8, 16, 0.1);
+    backdrop-filter: blur(36px) saturate(200%);
+    -webkit-backdrop-filter: blur(36px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.12),
+      0 2px 8px rgba(0, 0, 0, 0.08),
+      inset 0 1px 1px rgba(255, 255, 255, 0.35),
+      inset 0 -1px 1px rgba(0, 0, 0, 0.12);
+  }
+
+  .glass-muted {
+    background: linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.02) 55%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    background-color: rgba(6, 10, 18, 0.06);
+    backdrop-filter: blur(24px) saturate(185%);
+    -webkit-backdrop-filter: blur(24px) saturate(185%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.2),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .glass-danger {
+    background: linear-gradient(
+      140deg,
+      rgba(244, 63, 94, 0.12) 0%,
+      rgba(255, 255, 255, 0.03) 45%,
+      rgba(251, 191, 36, 0.05) 100%
+    );
+    background-color: rgba(20, 6, 10, 0.28);
+    backdrop-filter: blur(32px) saturate(190%);
+    -webkit-backdrop-filter: blur(32px) saturate(190%);
+    border: 1px solid rgba(251, 113, 133, 0.4);
+    box-shadow:
+      0 8px 28px rgba(0, 0, 0, 0.15),
+      inset 0 1px 1px rgba(255, 255, 255, 0.2),
+      0 0 48px -16px rgba(244, 63, 94, 0.2);
+  }
+
+  .glass-input {
+    width: 100%;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: rgb(248 250 252);
+    background: rgba(8, 12, 22, 0.22);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.12);
+  }
+  .glass-input::placeholder {
+    color: rgb(100 116 139);
+  }
+
+  .glass-input:focus,
+  .glass-select:focus {
+    outline: none;
+    border-color: rgba(52, 211, 153, 0.45);
+    box-shadow:
+      0 0 0 1px rgba(52, 211, 153, 0.28),
+      inset 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+
+  .glass-select {
+    width: 100%;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: rgb(248 250 252);
+    background: rgba(8, 12, 22, 0.22);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.12);
+  }
+  /* Mist / fog inside glass cards */
+  .card-fog {
+    isolation: isolate;
+  }
+
+  .card-fog-vapor {
+    position: absolute;
+    pointer-events: none;
+    inset: -30%;
+    z-index: 0;
+    opacity: 0.28;
+    background:
+      radial-gradient(ellipse 75% 60% at 10% 20%, rgba(255, 255, 255, 0.07) 0%, transparent 52%),
+      radial-gradient(ellipse 65% 50% at 90% 80%, rgba(148, 163, 184, 0.06) 0%, transparent 48%),
+      radial-gradient(ellipse 50% 45% at 50% 110%, rgba(52, 211, 153, 0.04) 0%, transparent 42%);
+    animation: card-fog-drift 16s ease-in-out infinite;
+    mix-blend-mode: overlay;
+    filter: blur(1px);
+  }
+
+  .card-fog-vapor--b {
+    animation-delay: -8s;
+    opacity: 0.22;
+    mix-blend-mode: soft-light;
+    filter: blur(2px);
+    background:
+      radial-gradient(ellipse 70% 55% at 85% 15%, rgba(167, 139, 250, 0.07) 0%, transparent 50%),
+      radial-gradient(ellipse 55% 40% at 15% 85%, rgba(56, 189, 248, 0.05) 0%, transparent 48%),
+      radial-gradient(ellipse 40% 35% at 60% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 55%);
+  }
+
+  .card-fog-noise {
+    position: absolute;
+    pointer-events: none;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: card-fog-noise-shift 24s linear infinite;
+    mix-blend-mode: overlay;
+  }
+}
+
+@keyframes card-fog-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  33% {
+    transform: translate(5%, -4%) scale(1.06) rotate(1deg);
+  }
+  66% {
+    transform: translate(-4%, 6%) scale(0.96) rotate(-1deg);
+  }
+}
+
+@keyframes card-fog-noise-shift {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-2%, 1%);
+  }
+  50% {
+    transform: translate(1%, -1%);
+  }
+  75% {
+    transform: translate(-1%, 2%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
