@@ -512,11 +512,11 @@ export default function App() {
   const expenseCats = categories.filter((c) => c.flow === "expense");
 
   return (
-    <div className="relative flex h-screen w-screen overflow-hidden text-slate-200">
+    <div className="relative flex h-screen w-screen flex-col md:flex-row overflow-hidden text-slate-200">
       <AnimatedGradientBackground />
       
       {/* 1. Left Sidebar Navigation */}
-      <aside className="relative z-10 flex w-72 flex-col border-r border-white/10 bg-black/20 backdrop-blur-3xl">
+      <aside className="relative z-10 flex w-full md:w-72 shrink-0 flex-col border-b md:border-b-0 md:border-r border-white/10 bg-black/20 backdrop-blur-3xl overflow-y-auto">
         <div className="p-8">
           <p className="text-xs font-bold uppercase tracking-widest text-emerald-400/90">Personal Finance</p>
           <h1 className="font-display mt-2 bg-gradient-to-br from-white via-emerald-100 to-cyan-200 bg-clip-text text-2xl font-bold tracking-tight text-transparent">
