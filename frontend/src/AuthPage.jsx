@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { AmbientBackdrop } from "./AmbientBackdrop.jsx";
-import { api, setAuthToken } from "./api.js";
+import { api, setAuthToken, BASE } from "./api.js";
 import { AnimatedGradientBackground } from "./AnimatedGradientBackground.jsx";
 import { FullScreenGrid } from "./FullScreenGrid.jsx";
 
@@ -289,7 +289,7 @@ export default function AuthPage() {
                       : "Google sign-in is not configured (set GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET on the server)"
                   }
                   onClick={() => {
-                    window.location.assign("/api/auth/google/start");
+                    window.location.assign(`${BASE}/auth/google/start`);
                   }}
                   className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/[0.07] px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/[0.11] disabled:cursor-not-allowed disabled:opacity-45"
                 >

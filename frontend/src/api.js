@@ -1,4 +1,4 @@
-const BASE = "/api";
+export const BASE = import.meta.env.VITE_API_URL || "https://finance-and-expense-tracker-kji1.onrender.com/api";
 const TOKEN_KEY = "finance_auth_token";
 
 export function getAuthToken() {
