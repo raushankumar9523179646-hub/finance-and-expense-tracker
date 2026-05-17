@@ -25,13 +25,13 @@ function TabButton({ active, children, onClick }) {
 
 function Card({ title, children, action }) {
   return (
-    <section className="glass card-fog relative overflow-hidden rounded-2xl p-5">
+    <section className="glass card-fog relative overflow-hidden rounded-2xl p-4 md:p-6">
       <span className="card-fog-vapor" aria-hidden />
       <span className="card-fog-vapor card-fog-vapor--b" aria-hidden />
       <span className="card-fog-noise" aria-hidden />
       <div className="relative z-10">
         <div className="mb-4 flex items-center justify-between gap-3">
-          <h2 className="font-display text-lg font-semibold tracking-tight text-white">{title}</h2>
+          <h2 className="font-display text-base md:text-lg font-semibold tracking-tight text-white">{title}</h2>
           {action}
         </div>
         {children}
@@ -88,13 +88,69 @@ function CrudModal({ title, open, onClose, children }) {
         onClick={onClose}
         aria-label="Close dialog"
       />
-      <div className="glass relative z-10 max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl p-6 shadow-2xl ring-1 ring-white/10">
+      <div className="glass relative z-10 max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl p-5 md:p-6 shadow-2xl ring-1 ring-white/10">
         <h3 id="crud-modal-title" className="font-display text-lg font-semibold text-white">
           {title}
         </h3>
         <div className="mt-4">{children}</div>
       </div>
     </div>
+  );
+}
+
+// Icons for Navigation
+const Icons = {
+  Dashboard: () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+      <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+    </svg>
+  ),
+  Transactions: () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+      <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
+      <path fillRule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clipRule="evenodd" />
+    </svg>
+  ),
+  Accounts: () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+      <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm2 3a1 1 0 011-1h1a1 1 0 110 2H7a1 1 0 01-1-1zm2 3a1 1 0 100 2h4a1 1 0 100-2H8z" clipRule="evenodd" />
+    </svg>
+  ),
+  Categories: () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+      <path fillRule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7a1 1 0 010-1.414l7-7a1 1 0 011.414 0l7 7zM9 2a1 1 0 011 1v6.586l.293-.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 111.414-1.414l.293.293V3a1 1 0 011-1z" clipRule="evenodd" />
+    </svg>
+  ),
+  Budgets: () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
+    </svg>
+  ),
+  Menu: () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  ),
+  Close: () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  )
+};
+
+function BottomNavItem({ active, icon: Icon, label, onClick }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex flex-col items-center justify-center gap-1 transition-all duration-300 ${
+        active ? "text-emerald-400 scale-110" : "text-slate-500 hover:text-slate-300"
+      }`}
+    >
+      <Icon />
+      <span className="text-[10px] font-bold uppercase tracking-tight">{label}</span>
+      {active && <span className="absolute -bottom-1 h-1 w-1 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]" />}
+    </button>
   );
 }
 
@@ -444,6 +500,7 @@ export default function App() {
   const [accountDraft, setAccountDraft] = useState(null);
   const [categoryDraft, setCategoryDraft] = useState(null);
   const [txEdit, setTxEdit] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const userDisplayName = useMemo(() => {
     const explicit = user?.display_name || user?.name;
@@ -515,43 +572,59 @@ export default function App() {
     <div className="relative flex h-screen w-screen flex-col md:flex-row overflow-hidden text-slate-200">
       <AnimatedGradientBackground />
       
-      {/* 1. Left Sidebar Navigation */}
-      <aside className="relative z-10 flex w-full md:w-72 shrink-0 flex-col border-b md:border-b-0 md:border-r border-white/10 bg-black/20 backdrop-blur-3xl overflow-y-auto">
-        <div className="p-8">
-          <p className="text-xs font-bold uppercase tracking-widest text-emerald-400/90">Personal Finance</p>
-          <h1 className="font-display mt-2 bg-gradient-to-br from-white via-emerald-100 to-cyan-200 bg-clip-text text-2xl font-bold tracking-tight text-transparent">
-            Expense Tracker
-          </h1>
+      {/* 0. Mobile Overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-md md:hidden" 
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* 1. Sidebar Navigation (Left on Desktop, Drawer on Mobile) */}
+      <aside className={`
+        fixed inset-y-0 left-0 z-50 flex w-72 flex-col border-r border-white/10 bg-black/40 backdrop-blur-3xl transition-transform duration-300 ease-in-out md:static md:translate-x-0
+        ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
+      `}>
+        <div className="flex items-center justify-between p-6 md:p-8">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-400/90">Personal Finance</p>
+            <h1 className="font-display mt-1 bg-gradient-to-br from-white via-emerald-100 to-cyan-200 bg-clip-text text-xl md:text-2xl font-bold tracking-tight text-transparent">
+              Expense Tracker
+            </h1>
+          </div>
+          <button onClick={() => setSidebarOpen(false)} className="rounded-lg p-2 text-slate-400 hover:bg-white/5 md:hidden">
+            <Icons.Close />
+          </button>
         </div>
 
-        <nav className="flex flex-1 flex-col gap-2 px-4">
+        <nav className="flex flex-1 flex-col gap-2 px-4" onClick={() => setSidebarOpen(false)}>
           <TabButton active={tab === "dashboard"} onClick={() => setTab("dashboard")}>
             <div className="flex items-center gap-3">
-              <span className="h-2 w-2 rounded-full bg-current" />
+              <Icons.Dashboard />
               Dashboard
             </div>
           </TabButton>
           <TabButton active={tab === "transactions"} onClick={() => setTab("transactions")}>
             <div className="flex items-center gap-3">
-              <span className="h-2 w-2 rounded-full bg-current" />
+              <Icons.Transactions />
               Transactions
             </div>
           </TabButton>
           <TabButton active={tab === "accounts"} onClick={() => setTab("accounts")}>
             <div className="flex items-center gap-3">
-              <span className="h-2 w-2 rounded-full bg-current" />
+              <Icons.Accounts />
               Accounts
             </div>
           </TabButton>
           <TabButton active={tab === "categories"} onClick={() => setTab("categories")}>
             <div className="flex items-center gap-3">
-              <span className="h-2 w-2 rounded-full bg-current" />
+              <Icons.Categories />
               Categories
             </div>
           </TabButton>
           <TabButton active={tab === "budgets"} onClick={() => setTab("budgets")}>
             <div className="flex items-center gap-3">
-              <span className="h-2 w-2 rounded-full bg-current" />
+              <Icons.Budgets />
               Budgets
             </div>
           </TabButton>
@@ -588,14 +661,22 @@ export default function App() {
       </aside>
 
       {/* 2. Main Content Area (Right) */}
-      <main className="relative z-0 flex flex-1 flex-col overflow-y-auto">
-        <header className="sticky top-0 z-20 flex items-center justify-between border-b border-white/5 bg-black/10 px-8 py-4 backdrop-blur-xl">
-          <div className="flex items-center gap-8">
-            <LiveClock />
+      <main className="relative z-0 flex flex-1 flex-col overflow-y-auto pb-20 md:pb-0">
+        <header className="sticky top-0 z-20 flex items-center justify-between border-b border-white/5 bg-black/20 px-4 py-3 backdrop-blur-xl md:px-8 md:py-4">
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={() => setSidebarOpen(true)}
+              className="rounded-xl border border-white/10 bg-white/5 p-2 text-slate-300 hover:bg-white/10 md:hidden"
+            >
+              <Icons.Menu />
+            </button>
+            <div className="hidden xs:block">
+              <LiveClock />
+            </div>
           </div>
           
-          <div className="flex items-center gap-3 rounded-xl glass-muted p-1 sm:p-1.5">
-            <Select label="" value={month} onChange={(e) => setMonth(Number(e.target.value))} className="!py-1 !text-xs">
+          <div className="flex items-center gap-2 rounded-xl glass-muted p-1 sm:gap-3 sm:p-1.5">
+            <Select label="" value={month} onChange={(e) => setMonth(Number(e.target.value))} className="w-24 !py-1 !text-[10px] sm:w-auto sm:!text-xs">
               {Array.from({ length: 12 }, (_, i) => (
                 <option key={i + 1} value={i + 1}>
                   {new Date(2000, i, 1).toLocaleString("default", { month: "short" })}
@@ -607,12 +688,12 @@ export default function App() {
               type="number"
               value={year}
               onChange={(e) => setYear(Number(e.target.value))}
-              className="w-20 !py-1 !text-xs"
+              className="w-16 !py-1 !text-[10px] sm:w-20 sm:!text-xs"
             />
           </div>
         </header>
 
-        <div className="mx-auto w-full max-w-7xl p-8">
+        <div className="mx-auto w-full max-w-7xl p-4 sm:p-8">
           {err && (
             <div className="mb-8 rounded-xl glass-danger px-4 py-3 text-sm text-rose-50 shadow-lg">
               {err} — is the Flask API running?
@@ -621,10 +702,10 @@ export default function App() {
 
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
             {tab === "dashboard" && (
-              <div className="grid gap-8 lg:grid-cols-2">
+              <div className="grid gap-6 md:gap-8 lg:grid-cols-2">
                 <Card title="Month Overview">
                   {summary && (
-                    <div className="grid gap-4 sm:grid-cols-3">
+                    <div className="grid gap-3 sm:grid-cols-3">
                       <div className="rounded-xl glass-muted p-4 ring-1 ring-emerald-400/20 shadow-inner">
                         <p className="text-[10px] uppercase tracking-wider text-emerald-400/70">Income</p>
                         <p className="mt-1 font-display text-2xl font-bold text-emerald-300">
@@ -679,7 +760,7 @@ export default function App() {
             )}
 
             {tab === "transactions" && (
-              <div className="grid gap-8 xl:grid-cols-12">
+              <div className="grid gap-6 md:gap-8 xl:grid-cols-12">
                 <div className="xl:col-span-4">
                   <Card title="New Entry">
                     <TransactionForm 
@@ -708,15 +789,15 @@ export default function App() {
                             const cat = categories.find((c) => c.id === t.category_id);
                             return (
                               <tr key={t.id} className="group border-b border-white/[0.04] transition hover:bg-white/[0.02]">
-                                <td className="py-4 text-slate-500">{t.occurred_on}</td>
-                                <td className="py-4 font-medium">{acc?.name ?? t.account_id}</td>
-                                <td className="py-4">
+                                <td className="py-2.5 md:py-4 text-slate-500">{t.occurred_on}</td>
+                                <td className="py-2.5 md:py-4 font-medium">{acc?.name ?? t.account_id}</td>
+                                <td className="py-2.5 md:py-4">
                                   <span className={cat?.flow === "income" ? "text-emerald-400" : "text-rose-300"}>
                                     {cat?.name ?? t.category_id}
                                   </span>
                                 </td>
-                                <td className="py-4 font-mono font-bold text-lg">{Number(t.amount).toFixed(2)}</td>
-                                <td className="py-4 text-right">
+                                <td className="py-2.5 md:py-4 font-mono font-bold text-base md:text-lg">{Number(t.amount).toFixed(2)}</td>
+                                <td className="py-2.5 md:py-4 text-right">
                                   <div className="flex justify-end gap-3 opacity-0 group-hover:opacity-100 transition">
                                     <button onClick={() => setTxEdit(t)} className="text-sky-400 hover:text-sky-300 transition">Edit</button>
                                     <button onClick={async () => { if (window.confirm("Delete?")) { await api.deleteTransaction(t.id); loadMonth(); loadCore(); }}} className="text-rose-400 hover:text-rose-300 transition">Delete</button>
@@ -727,6 +808,37 @@ export default function App() {
                           })}
                         </tbody>
                       </table>
+                    </div>
+
+                    {/* Mobile Card List (instead of table) */}
+                    <div className="space-y-3 md:hidden">
+                      {transactions.map((t) => {
+                        const acc = accounts.find((a) => a.id === t.account_id);
+                        const cat = categories.find((c) => c.id === t.category_id);
+                        return (
+                          <div key={t.id} className="rounded-xl glass-muted border border-white/5 p-4 active:bg-white/5 transition">
+                            <div className="mb-2 flex items-center justify-between">
+                              <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">{t.occurred_on}</span>
+                              <div className="flex gap-4">
+                                <button onClick={() => setTxEdit(t)} className="text-xs font-bold text-sky-400">Edit</button>
+                                <button onClick={async () => { if (window.confirm("Delete?")) { await api.deleteTransaction(t.id); loadMonth(); loadCore(); }}} className="text-xs font-bold text-rose-400">Del</button>
+                              </div>
+                            </div>
+                            <div className="flex items-end justify-between">
+                              <div>
+                                <p className="font-bold text-white">{acc?.name ?? "Unknown"}</p>
+                                <p className={`text-xs ${cat?.flow === "income" ? "text-emerald-400" : "text-rose-300"}`}>
+                                  {cat?.name ?? "Uncategorized"}
+                                </p>
+                              </div>
+                              <p className="font-mono text-xl font-black text-white">
+                                {Number(t.amount).toFixed(2)}
+                              </p>
+                            </div>
+                            {t.note && <p className="mt-2 text-[10px] italic text-slate-500 line-clamp-1">{t.note}</p>}
+                          </div>
+                        );
+                      })}
                     </div>
                   </Card>
                 </div>
@@ -747,7 +859,7 @@ export default function App() {
                 >
                   <ul className="divide-y divide-white/5 rounded-xl border border-white/5 bg-white/[0.02]">
                     {accounts.map((a) => (
-                      <li key={a.id} className="flex items-center justify-between p-5 group">
+                      <li key={a.id} className="flex items-center justify-between p-4 md:p-5 group">
                         <div>
                           <p className="font-bold text-lg text-white">{a.name}</p>
                           <p className="text-xs uppercase tracking-widest text-slate-500">{a.account_type} · {a.currency}</p>
@@ -774,7 +886,7 @@ export default function App() {
                   </button>
                 }
               >
-                <div className="grid gap-8 md:grid-cols-2">
+                <div className="grid gap-6 md:gap-8 md:grid-cols-2">
                   <div>
                     <h3 className="mb-4 text-xs font-bold uppercase tracking-widest text-emerald-400 text-center">Revenue Streams</h3>
                     <div className="space-y-2">
@@ -824,6 +936,15 @@ export default function App() {
         <CategoryEditorModal draft={categoryDraft} onClose={() => setCategoryDraft(null)} onSaved={async () => { setCategoryDraft(null); await loadCore(); await loadMonth(); }} />
         <TransactionEditorModal accounts={accounts} categories={categories} tx={txEdit} onClose={() => setTxEdit(null)} onSaved={async () => { setTxEdit(null); await loadMonth(); await loadCore(); }} />
       </main>
+
+      {/* 4. Bottom Navigation (Mobile Only) */}
+      <nav className="fixed bottom-4 left-4 right-4 z-50 flex h-16 items-center justify-around rounded-3xl border border-white/10 bg-black/40 px-2 backdrop-blur-2xl md:hidden">
+        <BottomNavItem active={tab === "dashboard"} icon={Icons.Dashboard} label="Home" onClick={() => setTab("dashboard")} />
+        <BottomNavItem active={tab === "transactions"} icon={Icons.Transactions} label="Data" onClick={() => setTab("transactions")} />
+        <BottomNavItem active={tab === "accounts"} icon={Icons.Accounts} label="Vault" onClick={() => setTab("accounts")} />
+        <BottomNavItem active={tab === "categories"} icon={Icons.Categories} label="Tags" onClick={() => setTab("categories")} />
+        <BottomNavItem active={tab === "budgets"} icon={Icons.Budgets} label="Goal" onClick={() => setTab("budgets")} />
+      </nav>
     </div>
   );
 
